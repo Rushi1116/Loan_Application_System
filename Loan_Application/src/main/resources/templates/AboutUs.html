@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Loan Application</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/Login.css}">
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/}"> <img
+			th:src="@{/images/loanconnect-logo.png}"
+			style="height: 2.6rem; width: 10rem;" alt="logo">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end"
+			id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/AboutUs}">About</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/ContactUs}">Contact</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/Login}">Login</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/Register}">Register</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/AdminLogin}">Admin</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-6">
+				<h1 class="mb-4">About Us</h1>
+				<p>
+					At <span class="text-primary">Loan Connect</span>, we are dedicated
+					to providing affordable loans to <br> help people achieve
+					their financial goals. Our mission is to help individuals <br>
+					and families obtain the funding they need to live the life they
+					want.
+				</p>
+				<h1 class="mb-4">Our History</h1>
+				<p>
+					<span class="text-primary">Loan Connect</span> was founded in 2022
+					with the goal of providing fair and <br> transparent loans to
+					people in need. We are proud to have helped thousands of
+					individuals and families achieve their dreams.
+				</p>
+				<h1 class="mb-4">Our Loans</h1>
+				<p>We offer a variety of loans to meet the needs of our 
+					customers, including <br>personal loans, auto loans, and home loans. 
+					Our loans come with <br>competitive interest rates and flexible
+					repayment options.</p>
+
+			</div>
+			<div class="col-md-6">
+				<h2 class="text-center mb-5">Our Team</h2>
+				<img th:src="@{/images/group.jpg}" alt="Team Photo"
+					class="img-fluid rounded shadow-lg">
+			</div>
+		</div>
+	</div>
+</body>
+</html>

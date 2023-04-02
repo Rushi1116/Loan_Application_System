@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Payment Page</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>	
+</head>
+<body>
+	<div class="container mt-5">
+		<h1>EMI Payment</h1>
+		<hr>
+		<form id="payment-form" th:action="@{/savePayment}" th:object="${objPayment}" method="POST">
+			<div class="form-group">
+				<label for="loanId">Loan ID:</label> 
+				<input type="text" class="form-control" th:name="fkloanId" th:value="${loan.loanId}" readonly>
+			</div>
+			<div class="form-group">
+				<label for="totalAmount">EMI Amount</label> 
+				<input type="text" class="form-control" id="emi" th:value="${loan.emi}" readonly>
+			</div>
+			<div class="form-group">
+				<!-- <label for="paidAmount">Total EMI paid</label> -->
+				<input type="hidden" class="form-control" id="paidAmount" th:name="paidAmount" th:value="${cycle.paidAmount}" readonly>
+			</div>
+			<div class="form-group">
+				<label for="accountNo">Account Number:</label> 
+				<input type="text" class="form-control" id="accountNo" th:value="${customer.accno}" readonly>
+			</div>
+			<div class="form-group">
+				<!-- <label for="accountNo">Account Number:</label>  -->
+				<input type="hidden" class="form-control" th:name="paymentStatus" th:value="${cycle.paymentStatus}" readonly>
+			</div>
+			<div class="form-group">
+				<input type="hidden" class="form-control" id="startDate" th:value="${loan.startDate}" readonly>
+			</div>
+			<div class="form-group"> 
+				<input type="hidden" class="form-control" id="loanTerms"  th:value="${loan.loanTerms}" readonly>
+			</div>
+			<div class="form-group"> 
+				<input type="hidden" class="form-control" id="paymentCycles" th:value="${loan.paymentCycles}" readonly>
+			</div>
+			<div class="form-group"> 
+				<input type="hidden" class="form-control" id="remainCycles" th:name="remainCycles" th:value="${cycle.remainCycles}" readonly>
+			</div>
+			<div class="form-group">
+				<label for="emiDueDate">EMI Due Date:</label>
+				<input type="date" class="form-control" id="dueDate" th:name="dueDate" th:value="${cycle.dueDate}" readonly>
+			</div>
+			<div class="form-group">
+				<label for="paymentDate">Payment Date:</label> 
+				<input type="date" class="form-control" id="paymentDate" th:field="*{paymentDate}" th:name="paymentDate" readonly>
+			</div>
+			<div class="form-group">
+			<button type="submit" class="btn btn-primary w-100">Pay</button>
+			</div>
+		</form>
+	</div>
+	
+	
+	<script type="text/javascript">
+	var remainCycles = parseInt(document.getElementById("remainCycles").value);
+	console.log(remainCycles);
+	</script>
+	<script type="text/javascript">
+	 window.onload = function() {
+	        var emi = parseInt(document.getElementById("emi").value);
+	        updatePaidAmount(emi);
+	    };
+
+	    function updatePaidAmount(emi) {
+	        var paidAmount = parseInt(document.getElementById("paidAmount").value);
+	        paidAmount += emi;
+	        document.getElementById("paidAmount").value = paidAmount;
+	    }
+	</script>
+	
+	<script type="text/javascript">
+	// Get the start date
+	var startDate = document.getElementById("startDate").value;
+	// Get the loan terms
+	var loanTerms = parseInt(document.getElementById("loanTerms").value);
+	// Get the payment cycles
+	var paymentCycles = parseInt(document.getElementById("paymentCycles").value);
+	// Get the emi due date
+	var dueDate = new Date(document.getElementById("dueDate").value);
+	
+	if(dueDate.getMonth() === new Date(startDate).getMonth()){
+		
+		// Calculate the due date by adding the total number of payment cycles to the start date
+		dueDate.setMonth(dueDate.getMonth() + loanTerms);
+		
+		 // Format the due date as a string in the YYYY-MM-DD format
+	      var formattedDate = dueDate.toISOString().slice(0, 10);
+		 
+	   // Set the value of the readonly input field to the formatted due date
+	      document.getElementById("dueDate").value = formattedDate;
+	}else{
+		// Calculate the due date by adding the total number of payment cycles to the start date
+		dueDate.setMonth(dueDate.getMonth() + loanTerms);
+		
+		// Format the due date as a string in the YYYY-MM-DD format
+	      var formattedDate = dueDate.toISOString().slice(0, 10);
+		 
+	   // Set the value of the readonly input field to the formatted due date
+	      document.getElementById("dueDate").value = formattedDate;
+	}
+	</script>
+	
+	<script>
+       //Set present date
+    var currentDate = moment().format("YYYY-MM-DD");
+    document.getElementById("paymentDate").value = currentDate;    
+    </script>
+</body>
+</html>

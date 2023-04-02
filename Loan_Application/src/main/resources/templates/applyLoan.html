@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Loan Calculator</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container mt-5">
+		<h1 class="text-center mb-5">Loan Application Form</h1>
+		<form th:action="@{/saveLoan}" th:object="${objLoan}" method="POST">
+			<div class="form-group row">
+				<label for="loanAmount" class="col-sm-3 col-form-label">Loan
+					Amount</label>
+				<div class="col-sm-9">
+					<input type="text" name="loanAmount" th:field="*{loanAmount}"
+						class="form-control" placeholder="Enter Loan Amount (in ₹)"
+						min="100000" max="1000000" id="loanAmount"
+						oninput="calculateEMI()" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="interestRate" class="col-sm-3 col-form-label">Interest
+					Rate (%)</label>
+				<div class="col-sm-9">
+					<input type="number" class="form-control" id="interestRate" name="interestRate" th:field="*{interestRate}"
+						value="13" oninput="calculateEMI()" readonly>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="tradeDate" class="col-sm-3 col-form-label">Trade
+					Date</label>
+				<div class="col-sm-9">
+					<input type="date" class="form-control" id="tradeDate" name="tradeDate" th:field="*{tradeDate}"
+						onchange="updateStartDate()">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="startDate" class="col-sm-3 col-form-label">Start
+					Date</label>
+				<div class="col-sm-9">
+					<input type="date" class="form-control" id="startDate" name="startDate" th:field="*{startDate}"
+						oninput="calculateEMI()" disabled>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="loanTenure" class="col-sm-3 col-form-label">Loan
+					Tenure (in years)</label>
+				<div class="col-sm-9">
+					<input type="number" class="form-control" id="loanTenure"  name="loanTenure" th:field="*{loanTenure}"
+						placeholder="Enter Loan Tenure" min="0" max="10"
+						oninput="calculateEMI()">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="loanTerms" class="col-sm-3 col-form-label">loan
+					Terms</label>
+				<div class="col-sm-9">
+					<select class="form-control" id="loanTerms" name="loanTerms" th:field="*{loanTerms}"
+						oninput="calculateEMI()" required>
+						<option value="1">Monthly</option>
+						<option value="3">Quarterly</option>
+						<option value="6">Half-Yearly</option>
+						<option value="12">Yearly</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="loanType" class="col-sm-3 col-form-label">Loan
+					Type</label>
+				<div class="col-sm-9">
+					<select class="form-control" id="loanType" name="loanType" th:field="*{loanType}">
+						<option value="">Select Loan Type</option>
+						<option value="Personal">Personal</option>
+						<option value="Home">Home</option>
+						<option value="Car">Car</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="loanReason" class="col-sm-3 col-form-label">Loan
+					Reason</label>
+				<div class="col-sm-9">
+					<textarea class="form-control" id="loanReason" name="loanReason" th:field="*{loanReason}"
+						placeholder="Enter Loan Reason"></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="paymentCycles" class="col-sm-3 col-form-label">EMI Cycles</label>
+				<div class="col-sm-9">
+					<input type="number" name="paymentCycles" th:field="*{paymentCycles}"
+						class="form-control" value="0" id="calcCycles" readonly>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="maturityDate" class="col-sm-3 col-form-label">Loan Maturity Date</label>
+				<div class="col-sm-9">
+					<input type="text" name="maturityDate" th:field="*{maturityDate}"
+						class="form-control" id="maturityDate" readonly>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="emi" class="col-sm-3 col-form-label">EMI /term</label>
+				<div class="col-sm-9">
+					<input type="number" name="emi" th:field="*{emi}"
+						class="form-control" value="0" id="emi" readonly>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="totalAmount" class="col-sm-3 col-form-label">Total Amount</label>
+				<div class="col-sm-9">
+					<input type="number" name="totalAmount" th:field="*{totalAmount}"
+						class="form-control" value="0" id="ta" readonly>
+				</div>
+			</div>
+			<div class="form-group row mt-5">
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-primary btn-block">Apply loan</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script>
+	
+	function updateStartDate() {
+	  let tradeDateInput = document.getElementById("tradeDate");
+	  let startDateInput = document.getElementById("startDate");
+
+	  // Convert the trade date input value to a Date object
+	  let tradeDate = new Date(tradeDateInput.value);
+
+	  // Calculate the earliest valid start date (10 days after the trade date)
+	  let earliestStartDate = new Date(tradeDate.getTime() + 10 * 24 * 60 * 60 * 1000);
+
+	  // Get the selected start date as a Date object
+	  let selectedStartDate = new Date(startDateInput.value);
+
+	  // If the selected start date is before the earliest valid start date, set it to the earliest valid start date
+	  if (selectedStartDate < earliestStartDate) {
+	    startDateInput.value = earliestStartDate.toISOString().slice(0, 10);
+	  }
+
+	  // Set the min attribute of the start date input to the trade date input value
+	  startDateInput.min = tradeDateInput.value;
+
+	  // Enable the start date input field
+	  startDateInput.disabled = false;
+	}
+			
+		function calculateEMI() {
+			// Get the loan amount
+			var loanAmount = parseInt(document.getElementById("loanAmount").value);
+			// Get the interest rate
+			var interestRate = parseInt(document.getElementById("interestRate").value);
+			// Get the start date
+			var startDate = document.getElementById("startDate").value;
+			// Get the loan tenure
+			var loanTenure = parseInt(document.getElementById("loanTenure").value);
+			// Get the loan terms
+			var loanTerms = parseInt(document.getElementById("loanTerms").value);
+			
+			// Calculate the EMI payment cycles
+			var calcCycles = (loanTenure * 12) / loanTerms;
+			document.getElementById("calcCycles").value = calcCycles;
+			
+			
+			// Calculate the maturity date
+			var maturityDate = new Date(startDate);
+			maturityDate.setFullYear(maturityDate.getFullYear() + loanTenure);
+			document.getElementById("maturityDate").value = maturityDate.toDateString();
+			
+			
+			//Calculate emi
+  			switch (loanTerms) {
+            case 1:
+                let monthlyInterest = interestRate / (12 * 100);
+                totalEMI = (loanAmount * monthlyInterest * Math.pow((1 + monthlyInterest), (loanTenure * 12))) / (Math.pow((1 + monthlyInterest), (loanTenure * 12)) - 1);
+                break;
+            case 3:
+                let quarterlyInterest = interestRate / (4 * 100);
+                totalEMI = (loanAmount * quarterlyInterest * Math.pow((1 + quarterlyInterest), (loanTenure * 4))) / (Math.pow((1 + quarterlyInterest), (loanTenure * 4)) - 1);
+                break;
+            case 6:
+                let halfYearlyInterest = interestRate / (2 * 100);
+                totalEMI = (loanAmount * halfYearlyInterest * Math.pow((1 + halfYearlyInterest), (loanTenure * 2))) / (Math.pow((1 + halfYearlyInterest), (loanTenure * 2)) - 1);
+                break;
+            case 12:
+                let yearlyInterest = interestRate / (1 * 100);
+            totalEMI = (loanAmount * yearlyInterest * Math.pow((1 + yearlyInterest), loanTenure)) / (Math.pow((1 + yearlyInterest), loanTenure) - 1);
+            break;
+        default:
+            break;
+    	}
+  			document.getElementById("emi").value = totalEMI.toFixed(0);
+  			
+  			//Calculate total amount
+  			let totalAmount = totalEMI * calcCycles;
+  			document.getElementById("ta").value = totalAmount.toFixed(0);
+		}
+	</script>
+</body>
+</html>

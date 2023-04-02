@@ -1,0 +1,35 @@
+body {
+	
+}
+
+.login-container {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 40px;
+	margin-top: 50px;
+}
+
+h2 {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 30px;
+}
+
+label {
+	font-weight: bold;
+	color: #333;
+}
+
+input.form-control {
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+button.btn-primary {
+	margin-top: 20px;
+}

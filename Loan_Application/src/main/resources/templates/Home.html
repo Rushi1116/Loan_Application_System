@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZEENhDLO0mXvcZQ8QZC4ip"
+	crossorigin="anonymous">
+<title>Loan Application</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" th:href="@{/css/Login.css}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/carousel.css}">
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/}"> <img
+			th:src="@{/images/loanconnect-logo.png}"
+			style="height: 2.6rem; width: 10rem;" alt="logo">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end"
+			id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/AboutUs}">About</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/ContactUs}">Contact</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/Login}">Login</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/Register}">Register</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/AdminLogin}">Admin</a></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- Header -->
+	<header>
+		<div class="row">
+			<div class="col-12">
+				<div id="carouselExampleDark" class="carousel carousel-dark slide">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleDark"
+							data-bs-slide-to="0" class="active" aria-current="true"
+							aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleDark"
+							data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleDark"
+							data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active" data-bs-interval="10000">
+							<img
+								src="https://img.freepik.com/free-vector/rupee-symbol-digital-technology-background_1017-36810.jpg?w=996&t=st=1678831311~exp=1678831911~hmac=2db4c3db36677c332d04eee0a6404ebe274f2a9f52461d62d31cd228609b49e4"
+								class="d-block w-100" alt="...">
+							<div class="carousel-caption img-1 d-none d-md-block text-white">
+								<h1 class="display-4">Welcome to LoanConnect</h1>
+								<p class="lead">Apply for a loan with our quick and easy
+									online application.</p>
+								<a th:href="@{/Login}" class="btn btn-light btn-lg mb-2">Apply
+									Now</a>
+							</div>
+						</div>
+						<div class="carousel-item" data-bs-interval="2000">
+							<img
+								src="https://img.freepik.com/free-photo/increase-coins-stacking-with-pink-piggy-bank-web-banner-design-growth-deposit-money-saving-business-investment-concept-by-3d-render-illustration_616485-127.jpg?w=1380&t=st=1678831456~exp=1678832056~hmac=49e19ecb492298a379b73ea8d4309b08748382c6985820882842240d6e767f61"
+								class="d-block w-100" alt="...">
+							<div class="carousel-caption img-2 d-none d-md-block">
+								<h1 class="display-3">connect us</h1>
+								<p class="fs-5">Don't let finances hold you back. Our loans can help you achieve your dreams.</p>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<img
+								src="https://img.freepik.com/free-photo/business-finance-employment-entrepreneur-money-concept-dreamy-pleased-businesswoman-thinking_1258-94963.jpg?w=1380&t=st=1678831616~exp=1678832216~hmac=5354125a8c33bec64210933a0b17c1776736a5dc2c9983b1e3bd242ae3fdd570"
+								class="d-block w-100" alt="...">
+							<div class="carousel-caption img-3 d-none d-md-block">
+								<h1 class="display-3">Affordable</h1>
+								<p class="fs-5">Looking for a loan that fits your budget? We've got you covered.</p>
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button"
+						data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button"
+						data-bs-target="#carouselExampleDark" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="container"></div>
+	</header>
+
+	<!-- Features -->
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 mb-4" style="width: 65vh">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Low Interest Rates</h4>
+							<p class="card-text">We offer some of the lowest interest
+								rates in the market, making it easier for you to pay off your
+								loan. Say goodbye to high interest rates.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 mb-4" style="width: 65vh">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Flexible Repayment Options</h4>
+							<p class="card-text">We offer a range of repayment options
+								that are designed to suit your needs and budget, so you can
+								repay your loan comfortably.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 mb-4" style="width: 65vh">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Fast Approval</h4>
+							<p class="card-text">
+							Need money in a hurry? 
+								Our online application process is quick and easy, so
+								you can get the funds you need without the hassle.
+								Fast -- Easy -- reliable
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

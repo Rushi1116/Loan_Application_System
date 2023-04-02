@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">EMI Calculator</h2>
+        <form>
+            <div class="form-group">
+                <label for="loanAmount">Loan Amount</label>
+                <input type="number" class="form-control" id="loanAmount" placeholder="Enter loan amount" required>
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" class="form-control" id="interestRate" placeholder="Enter interest rate" required>
+            </div>
+            <div class="form-group">
+                <label for="loanTenure">Loan Tenure (in years)</label>
+                <input type="number" class="form-control" id="loanTenure" placeholder="Enter loan tenure" required>
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Loan Term</label>
+                <select class="form-control" id="loanTerm">
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="half-yearly">Half-Yearly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary mr-2" onclick="calculateEMI()">Calculate EMI</button>
+        	<a th:href="@{/CustomerDashBoard}" class="btn btn-primary">Return to Dashboard</a>
+        </form>
+        <div class="mt-4">
+            <h3>EMI: <span id="result"></span></h3>
+        </div>
+    </div>
+
+    <script>
+        function calculateEMI() {
+            let loanAmount = document.getElementById("loanAmount").value;
+            let interestRate = document.getElementById("interestRate").value;
+            let loanTenure = document.getElementById("loanTenure").value;
+            let loanTerm = document.getElementById("loanTerm").value;
+            let totalEMI = 0;
+
+            switch (loanTerm) {
+                case "monthly":
+                    let monthlyInterest = interestRate / (12 * 100);
+                    totalEMI = (loanAmount * monthlyInterest * Math.pow((1 + monthlyInterest), (loanTenure * 12))) / (Math.pow((1 + monthlyInterest), (loanTenure * 12)) - 1);
+                    break;
+                case "quarterly":
+                    let quarterlyInterest = interestRate / (4 * 100);
+                    totalEMI = (loanAmount * quarterlyInterest * Math.pow((1 + quarterlyInterest), (loanTenure * 4))) / (Math.pow((1 + quarterlyInterest), (loanTenure * 4)) - 1);
+                    break;
+                case "half-yearly":
+                    let halfYearlyInterest = interestRate / (2 * 100);
+                    totalEMI = (loanAmount * halfYearlyInterest * Math.pow((1 + halfYearlyInterest), (loanTenure * 2))) / (Math.pow((1 + halfYearlyInterest), (loanTenure * 2)) - 1);
+                    break;
+                case "yearly":
+                    let yearlyInterest = interestRate / (1 * 100);
+                totalEMI = (loanAmount * yearlyInterest * Math.pow((1 + yearlyInterest), loanTenure)) / (Math.pow((1 + yearlyInterest), loanTenure) - 1);
+                break;
+            default:
+                break;
+        }
+
+        let emiText = "₹ " + totalEMI.toFixed(2) + " per " + loanTerm;
+        document.getElementById("result").innerHTML = emiText;
+    }
+</script>
+</body>
+</html>

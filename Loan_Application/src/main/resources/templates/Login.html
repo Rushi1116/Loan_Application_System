@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/Login.css}">
+    <script th:src="@{/js/Login.js}"></script>
+</head>
+<body>
+<!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" th:href="@{/}">
+      <img th:src="@{/images/loanconnect-logo.png}" style="height: 2.6rem; width: 10rem;" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/AboutUs}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/ContactUs}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/Login}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/Register}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/AdminLogin}">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <div class="container">
+        <div class="login-container">
+            <h2 class="mb-0">Customer Login</h2>
+            <hr>
+            <form th:action="@{/verifycustomer}" th:object="${loginData}"
+						method="POST">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" th:field="*{email}" class="form-control" placeholder="youremail@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" th:field="*{password}" class="form-control" placeholder="*********" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
