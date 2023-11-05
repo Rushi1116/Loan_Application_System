@@ -36,7 +36,7 @@ Open your java editor, import the project file using option import maven project
 
 ### Step 2: Configure Database
 
-1. Create a MySQL database with the name "loan_management_system".
+1. Create a MySQL database with the name "loanapp".
 2. Open the "application.properties" file located in `src/main/resources`.
 3. Update the database connection properties, such as `spring.datasource.username` and `spring.datasource.password`, with your MySQL credentials.
 
